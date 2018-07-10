@@ -1,0 +1,37 @@
+.simpleCard {
+    background-color: lightgreen;
+    width: 230px;
+    height: 230px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.simpleCard > img {
+    width: 100%;
+}
+
+.simpleCard h1 {
+    position: absolute;
+    bottom: 0;
+    padding: 0 5px;
+    background-color: rgba(256, 256, 256, 0.7);
+}
+
+.extendedCard {
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 230px;
+    height: 270px;
+    text-align: center;
+    background-color: violet;
+    color: white;
+}
+
+.extendedCard button{
+    border: none;
+    width: 100%;
+    text-transform: uppercase;
+}

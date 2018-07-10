@@ -1,0 +1,42 @@
+header {
+    width: 100%;
+    margin: 10px;
+    min-width: 250px;
+}
+
+.logo {
+    font-size: 3rem;
+    margin: 0 20px;
+    color: darkviolet;
+    text-transform: uppercase;
+    font-weight: bold;
+    float: left;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+header li {
+    float: left;
+    display: block;
+    padding: 10px;
+    background-color: violet;
+}
+
+header li:first-child{
+    margin-right: 10px;
+}
+
+header li a {
+    text-decoration: none;
+    color: white;
+    text-transform: lowercase;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+}
