@@ -8,28 +8,14 @@ class AllPokemons extends Component{
 
         this.state = {
             pokemons: [],
-            caught: [],
-            page: 1,
-        }
+            page: 0,
+        };
 
-        this.catchPokemon = this.catchPokemon.bind(this)
+        this.catchPokemon = this.catchPokemon.bind(this);
     }
 
     componentDidMount(){
-        fetch('http://localhost:3000/caught_pokemons')
-            .then(response => response.json())
-            .then(caught => {
-                this.setState({
-                    caught: caught
-                })
-            });
-        fetch('http://localhost:3000/pokemons?_page=1')
-            .then(response => response.json())
-            .then(pokemons => {
-                this.setState({
-                    pokemons: this.preparePokemonsData(pokemons)
-                })
-            });
+        this.loadPokemons()
     }
 
     preparePokemonsData = (pokemons) => {
@@ -38,22 +24,17 @@ class AllPokemons extends Component{
                 id: pokemon.id,
                 name: pokemon.name,
                 imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon.id}.png`,
-                isCaught: this.isPokemonCaught(pokemon),
+                isCaught: ('isCaught' in pokemon)? pokemon.isCaught: false,
             }
         ))
     }
 
-    isPokemonCaught = (pokemon) => {
-        const idx = this.findPokemonInArr(pokemon.id, this.state.caught);
-        return !(idx === undefined);
-    }
-
-    findPokemonInArr = (id, arr) => {
+    findPokemonInArrById = (id, arr) => {
         return arr.find(pokemon => pokemon.id == id);
     }
 
-    loadPokemons = (event) => {
-        let {page} = this.state;
+    loadPokemons = () => {
+        let { page } = this.state;
         page++;
         fetch(`http://localhost:3000/pokemons?_page=${page}`)
             .then(response => response.json())
@@ -66,29 +47,32 @@ class AllPokemons extends Component{
     }
 
     catchPokemon = (event) => {
-        const pokemon = this.findPokemonInArr(event.target.id, this.state.pokemons);
+        const pokemon = this.findPokemonInArrById(event.target.id, this.state.pokemons);
         if (pokemon.isCaught === false){
-            let caught_pokemon = {
+            const caught_pokemon = {
                 id: pokemon.id,
                 name: pokemon.name,
+                isCaught: true,
                 date: this.getDateString()
             };
-            const idx = this.state.pokemons.indexOf(pokemon);
-            let new_pokemons = this.state.pokemons;
-            new_pokemons[idx].isCaught = true;
-            this.setState({
-                caught: this.state.caught.concat([caught_pokemon]),
-                pokemons: new_pokemons
-            });
-            fetch(`http://localhost:3000/caught_pokemons`,{
-                method: 'POST',
+            fetch(`http://localhost:3000/pokemons/${pokemon.id}`,{
+                method: 'PUT',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(caught_pokemon)
+                body: JSON.stringify({
+                    name: pokemon.name,
+                    id: pokemon.id,
+                    isCaught: true,
+                    date: this.getDateString()
+                })
             })
-                .then(() => {})
+                .then(() => {});
+            this.setState(({ pokemons }) => {
+                pokemons[pokemons.indexOf(pokemon)].isCaught = true;
+                return pokemons;
+            })
         }
     }
 

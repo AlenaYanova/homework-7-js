@@ -10,7 +10,7 @@ const Header = () => (
         <nav>
             <ul className="clearfix">
                 <li><Link to='/pokemons'>All Pokemons</Link></li>
-                <li><Link to='/caught'>Caught Pokemons</Link></li>
+                <li><Link to='/pokemons/caught'>Caught Pokemons</Link></li>
             </ul>
         </nav>
     </header>

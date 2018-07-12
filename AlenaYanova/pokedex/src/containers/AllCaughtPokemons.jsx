@@ -12,7 +12,7 @@ class AllCaughtPokemons extends Component{
     }
 
     componentDidMount(){
-        fetch('http://localhost:3000/caught_pokemons?_page=1')
+        fetch('http://localhost:3000/pokemons?isCaught=true&_page=1')
             .then(response => response.json())
             .then(pokemons => {
                 this.setState({
@@ -36,7 +36,7 @@ class AllCaughtPokemons extends Component{
     loadPokemons = (event) => {
         let {page} = this.state;
         page++;
-        fetch(`http://localhost:3000/caught_pokemons?_page=${page}`)
+        fetch(`http://localhost:3000/pokemons?isCaught=true&_page=${page}`)
             .then(response => response.json())
             .then(newPokemons => {
                 this.setState({

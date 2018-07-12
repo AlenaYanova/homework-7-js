@@ -1,12 +1,16 @@
 {
   "pokemons": [
     {
-      "name": "bulbasaur",
-      "id": 1
+      "name": "charmander",
+      "id": 1,
+      "isCaught": true,
+      "date": "Jul 12 2018 05:14:26"
     },
     {
       "name": "ivysaur",
-      "id": 2
+      "id": 2,
+      "isCaught": true,
+      "date": "Jul 12 2018 05:15:49"
     },
     {
       "name": "venusaur",
@@ -70,7 +74,9 @@
     },
     {
       "name": "pidgeot",
-      "id": 18
+      "id": 18,
+      "isCaught": true,
+      "date": "Jul 12 2018 05:22:22"
     },
     {
       "name": "rattata",
@@ -110,7 +116,9 @@
     },
     {
       "name": "sandslash",
-      "id": 28
+      "id": 28,
+      "isCaught": true,
+      "date": "Jul 12 2018 05:22:26"
     },
     {
       "name": "nidoran-f",
@@ -3795,38 +3803,6 @@
     {
       "name": "magearna-original",
       "id": 10147
-    }
-  ],
-  "caught_pokemons": [
-    {
-      "id": 4,
-      "name": "charmander",
-      "date": "Jul 10 2018 00:29:15"
-    },
-    {
-      "id": 1,
-      "name": "bulbasaur",
-      "date": "Jul 10 2018 00:29:37"
-    },
-    {
-      "id": 20,
-      "name": "raticate",
-      "date": "Jul 10 2018 06:36:38"
-    },
-    {
-      "id": 36,
-      "name": "clefable",
-      "date": "Jul 10 2018 06:36:55"
-    },
-    {
-      "id": 38,
-      "name": "ninetales",
-      "date": "Jul 10 2018 06:36:59"
-    },
-    {
-      "id": 3,
-      "name": "venusaur",
-      "date": "Jul 10 2018 15:43:55"
     }
   ]
 }
