@@ -37,7 +37,6 @@ audio:not([controls]) {
   height: 0;
 }
 
-
 [hidden],
 template {
   display: none;
@@ -60,7 +59,6 @@ b,
 strong {
   font-weight: bold;
 }
-
 
 dfn {
   font-style: italic;
@@ -209,7 +207,6 @@ textarea {
 optgroup {
   font-weight: bold;
 }
-
 
 table {
   border-collapse: collapse;
