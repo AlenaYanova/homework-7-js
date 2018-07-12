@@ -1,39 +1,9 @@
-import React, {Component} from 'react';
-import PokemonsList from '../components/PokemonsList'
+import React from 'react';
+import AllPokemons from './AllPokemons.jsx';
 
 
-class AllCaughtPokemons extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            pokemons: [],
-            page: 1,
-        };
-    }
-
-    componentDidMount(){
-        fetch('http://localhost:3000/pokemons?isCaught=true&_page=1')
-            .then(response => response.json())
-            .then(pokemons => {
-                this.setState({
-                    pokemons: this.preparePokemonsData(pokemons)
-                })
-            });
-    }
-
-    preparePokemonsData = (pokemons) => {
-        return pokemons.map((pokemon) => (
-            {
-                id: pokemon.id,
-                name: pokemon.name,
-                imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon.id}.png`,
-                isCaught: true,
-                date: pokemon.date,
-            }
-        ))
-    }
-
-    loadPokemons = (event) => {
+class AllCaughtPokemons extends AllPokemons{
+    loadPokemons = () => {
         let {page} = this.state;
         page++;
         fetch(`http://localhost:3000/pokemons?isCaught=true&_page=${page}`)
@@ -44,15 +14,6 @@ class AllCaughtPokemons extends Component{
                     page: page
                 });
             })
-    }
-
-    render(){
-        return(
-            <PokemonsList
-                pokemonsArr={this.state.pokemons}
-                onLoadClick={this.loadPokemons}
-            />
-        )
     }
 }
 

@@ -49,12 +49,6 @@ class AllPokemons extends Component{
     catchPokemon = (event) => {
         const pokemon = this.findPokemonInArrById(event.target.id, this.state.pokemons);
         if (pokemon.isCaught === false){
-            const caught_pokemon = {
-                id: pokemon.id,
-                name: pokemon.name,
-                isCaught: true,
-                date: this.getDateString()
-            };
             fetch(`http://localhost:3000/pokemons/${pokemon.id}`,{
                 method: 'PUT',
                 headers: {

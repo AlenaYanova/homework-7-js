@@ -38,7 +38,9 @@
     },
     {
       "name": "blastoise",
-      "id": 9
+      "id": 9,
+      "isCaught": true,
+      "date": "Jul 12 2018 05:44:11"
     },
     {
       "name": "caterpie",

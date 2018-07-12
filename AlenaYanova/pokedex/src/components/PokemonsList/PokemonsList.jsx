@@ -26,7 +26,7 @@ const PokemonsList = (props) => (
 PokemonsList.propTypes = {
     pokemonsArr: PropTypes.arrayOf(PropTypes.shape(PokemonsListItem.propTypes)),
     onLoadClick: PropTypes.func.isRequired,
-    onCatchClick: PropTypes.func.isRequired,
+    onCatchClick: PropTypes.func,
 };
 
 export default PokemonsList;
