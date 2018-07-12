@@ -11,21 +11,27 @@ class Pokemon extends Component {
   }
 
   componentDidMount() {
-    fetch(`http://localhost:3000/pokemons/${this.props.match.params.id}`)
+    fetch(`http://localhost:3000/pokemons/${this.props.match.params.id}?_embed=caught`)
       .then(response => response.json())
       .then(pokemon_info => {
-        pokemon_info.imgSrc = `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon_info.id}.png`;
-        pokemon_info.isCaught = ('isCaught' in pokemon_info) ? pokemon_info.isCaught : false;
+        const isCaught = (pokemon_info.caught.length > 0);
+        const date = (isCaught)? pokemon_info.caught[0].date : null;
         this.setState({
-          pokemon_info: pokemon_info
+          pokemon_info: {
+            id: pokemon_info.id,
+            name: pokemon_info.name,
+            isCaught: isCaught,
+            date: date,
+            imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon_info.id}.png`,
+          }
         });
       });
   }
 
   render() {
-    const {id, name, imgSrc, isCaught, date} = this.state.pokemon_info;
+    const pokemon_info = this.state.pokemon_info;
     return (
-      <PokemonCard id={id} name={name} imgSrc={imgSrc} isCaught={isCaught} date={date}/>
+      <PokemonCard {...pokemon_info} />
     )
   }
 }

@@ -10,7 +10,7 @@ const App = () => (
   <div className="container">
     <Header/>
     <Switch>
-      {routes.map((item) => <Route {...item} />)}
+      {routes.map((item, idx) => <Route key={`route-${idx}`}{...item} />)}
     </Switch>
   </div>
 );

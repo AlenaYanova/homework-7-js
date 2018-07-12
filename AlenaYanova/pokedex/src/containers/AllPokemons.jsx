@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PokemonsList from '../components/PokemonsList'
+import { getDateString } from '../utils'
 
 
 class AllPokemons extends Component {
@@ -24,19 +25,19 @@ class AllPokemons extends Component {
         id: pokemon.id,
         name: pokemon.name,
         imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon.id}.png`,
-        isCaught: ('isCaught' in pokemon) ? pokemon.isCaught : false,
+        isCaught: (pokemon.caught.length > 0),
       }
     ))
   }
 
   findPokemonInArrById = (id, arr) => {
-    return arr.find(pokemon => pokemon.id == id);
+    return arr.find(pokemon => pokemon.id.toString() === id.toString());
   }
 
   loadPokemons = () => {
     let {page} = this.state;
     page++;
-    fetch(`http://localhost:3000/pokemons?_page=${page}`)
+    fetch(`http://localhost:3000/pokemons?_embed=caught&_page=${page}`)
       .then(response => response.json())
       .then(newPokemons => {
         this.setState({
@@ -48,18 +49,17 @@ class AllPokemons extends Component {
 
   catchPokemon = (event) => {
     const pokemon = this.findPokemonInArrById(event.target.id, this.state.pokemons);
-    if (pokemon.isCaught === false) {
-      fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
-        method: 'PUT',
+    if (!pokemon.isCaught) {
+      fetch(`http://localhost:3000/caught`, {
+        method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: pokemon.name,
-          id: pokemon.id,
-          isCaught: true,
-          date: this.getDateString()
+          pokemonId: pokemon.id,
+          pokemonName: pokemon.name,
+          date: getDateString(),
         })
       })
         .then(() => {
@@ -69,11 +69,6 @@ class AllPokemons extends Component {
         return pokemons;
       })
     }
-  }
-
-  getDateString = () => {
-    const date = (new Date()).toString().split(' ');
-    return `${date[1]} ${date[2]} ${date[3]} ${date[4]}`;
   }
 
   render() {

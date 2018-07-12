@@ -7,7 +7,7 @@ const PokemonsList = (props) => (
   <div className="pokemonsListContainer">
     <ul className="pokemonsList clearfix columns">
       {props.pokemonsArr.map(pokemon =>
-        <li className="pokemonsListItem" key={pokemon.id}>
+        <li className="pokemonsListItem" key={`pokemon-${pokemon.id}`}>
           <PokemonsListItem
             name={pokemon.name}
             id={pokemon.id}

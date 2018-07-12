@@ -2,15 +2,11 @@
   "pokemons": [
     {
       "name": "charmander",
-      "id": 1,
-      "isCaught": true,
-      "date": "Jul 12 2018 05:14:26"
+      "id": 1
     },
     {
       "name": "ivysaur",
-      "id": 2,
-      "isCaught": true,
-      "date": "Jul 12 2018 05:15:49"
+      "id": 2
     },
     {
       "name": "venusaur",
@@ -38,9 +34,7 @@
     },
     {
       "name": "blastoise",
-      "id": 9,
-      "isCaught": true,
-      "date": "Jul 12 2018 05:44:11"
+      "id": 9
     },
     {
       "name": "caterpie",
@@ -76,9 +70,7 @@
     },
     {
       "name": "pidgeot",
-      "id": 18,
-      "isCaught": true,
-      "date": "Jul 12 2018 05:22:22"
+      "id": 18
     },
     {
       "name": "rattata",
@@ -118,9 +110,7 @@
     },
     {
       "name": "sandslash",
-      "id": 28,
-      "isCaught": true,
-      "date": "Jul 12 2018 05:22:26"
+      "id": 28
     },
     {
       "name": "nidoran-f",
@@ -3805,6 +3795,26 @@
     {
       "name": "magearna-original",
       "id": 10147
+    }
+  ],
+  "caught": [
+    {
+      "pokemonId": 2,
+      "pokemonName": "ivysaur",
+      "date": "July 12th 2018, 5:32:17 pm",
+      "id": 1
+    },
+    {
+      "pokemonId": 4,
+      "pokemonName": "charmander",
+      "date": "July 12th 2018, 5:32:18 pm",
+      "id": 2
+    },
+    {
+      "pokemonId": 9,
+      "pokemonName": "blastoise",
+      "date": "July 12th 2018, 5:38:31 pm",
+      "id": 3
     }
   ]
 }
