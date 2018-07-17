@@ -1,85 +1,28 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { connect } from "react-redux";
 import PokemonsList from '../components/PokemonsList'
-import { getDateString } from '../utils'
+import { loadPokemons } from "../actions/loadPokemons";
+import { catchPokemon } from '../actions/catchPokemon'
 
+const mapStateToProps = state => {
+  return {pokemonsArr: state.allPokemons.pokemons.items}
+};
 
-class AllPokemons extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      pokemons: [],
-      page: 0,
-    };
-
-    this.catchPokemon = this.catchPokemon.bind(this);
-  }
-
-  componentDidMount() {
-    this.loadPokemons()
-  }
-
-  preparePokemonsData = (pokemons) => {
-    return pokemons.map((pokemon) => (
-      {
-        id: pokemon.id,
-        name: pokemon.name,
-        imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon.id}.png`,
-        isCaught: (pokemon.caught.length > 0),
-      }
-    ))
-  }
-
-  findPokemonInArrById = (id, arr) => {
-    return arr.find(pokemon => pokemon.id.toString() === id.toString());
-  }
-
-  loadPokemons = () => {
-    let {page} = this.state;
-    page++;
-    fetch(`http://localhost:3000/pokemons?_embed=caught&_page=${page}`)
-      .then(response => response.json())
-      .then(newPokemons => {
-        this.setState({
-          pokemons: this.state.pokemons.concat(this.preparePokemonsData(newPokemons)),
-          page: page
-        });
-      })
-  }
-
-  catchPokemon = (event) => {
-    const pokemon = this.findPokemonInArrById(event.target.id, this.state.pokemons);
-    if (!pokemon.isCaught) {
-      fetch(`http://localhost:3000/caught`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          pokemonId: pokemon.id,
-          pokemonName: pokemon.name,
-          date: getDateString(),
-        })
-      })
-        .then(() => {
-        });
-      this.setState(({pokemons}) => {
-        pokemons[pokemons.indexOf(pokemon)].isCaught = true;
-        return pokemons;
-      })
+const mapDispatchToProps = dispatch => {
+  dispatch(loadPokemons());
+  return {
+    onLoadClick: () => {
+      dispatch(loadPokemons())
+    },
+    onCatchClick: (event) => {
+      dispatch(catchPokemon(event.target.id))
     }
   }
+};
 
-  render() {
-    return (
-      <PokemonsList
-        pokemonsArr={this.state.pokemons}
-        onLoadClick={this.loadPokemons}
-        onCatchClick={this.catchPokemon}
-      />
-    )
-  }
-}
+const AllPokemons = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PokemonsList);
 
 export default AllPokemons;

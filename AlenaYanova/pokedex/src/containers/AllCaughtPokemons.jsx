@@ -1,31 +1,24 @@
 import React from 'react';
-import AllPokemons from './AllPokemons.jsx';
+import { connect } from "react-redux";
+import PokemonsList from '../components/PokemonsList'
+import { loadCaughtPokemons } from "../actions/loadCaughtPokemons";
 
-class AllCaughtPokemons extends AllPokemons {
-  loadPokemons = () => {
-    let {page} = this.state;
-    page++;
-    //FIXME: Expand doesn't work, I really don't know why (because of that I save pokemonName in caught collection)
-    fetch(`http://localhost:3000/caught?_page=${page}`)
-      .then(response => response.json())
-      .then(newPokemons => {
-        this.setState({
-          pokemons: this.state.pokemons.concat(this.preparePokemonsData(newPokemons)),
-          page: page
-        });
-      })
-  }
+const mapStateToProps = state => {
+  return {pokemonsArr: state.allCaughtPokemons.pokemons.items}
+};
 
-  preparePokemonsData = (pokemons) => {
-    return pokemons.map((pokemon) => (
-      {
-        id: pokemon.pokemonId,
-        name: pokemon.pokemonName,
-        imgSrc: `https://raw.githubusercontent.com/epam-js-may-2018/homework-7-js/master/pokemons/${pokemon.pokemonId}.png`,
-        isCaught: true,
-      }
-    ))
+const mapDispatchToProps = dispatch => {
+  dispatch(loadCaughtPokemons());
+  return {
+    onLoadClick: () => {
+      dispatch(loadCaughtPokemons())
+    },
   }
-}
+};
+
+const AllCaughtPokemons = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PokemonsList);
 
 export default AllCaughtPokemons;
